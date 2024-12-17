@@ -16,12 +16,11 @@ public class ProductSpecParams
             _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
     }
-
-
+    
     private List<string> _brands = [];
     public List<string> Brands
     {
-        get => _brands; // boards,gloves
+        get => _brands; // boards,gloves,...,
         set
         {
             _brands = value.SelectMany(x => x.Split(',', StringSplitOptions.RemoveEmptyEntries)).ToList();
