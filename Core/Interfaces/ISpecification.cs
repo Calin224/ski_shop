@@ -17,7 +17,7 @@ public interface ISpecification<T>
     IQueryable<T> ApplyCriteria(IQueryable<T> query);
 }
 
-public interface ISpecification<T, TResult> : ISpecification<T>
+public interface ISpecification<T, TResult> : ISpecification<T> // for brands and types 
 {
     Expression<Func<T, TResult>>? Select { get; }
 }
