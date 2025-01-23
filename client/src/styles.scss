@@ -28,3 +28,44 @@ $customTheme: mat.define-theme();
 button.match-input-height {
   height: var(--mat-form-field-container-height) !important;
 }
+
+.mdc-notched-outline__notch {
+  border-right-style: none !important;
+}
+
+.mat-mdc-snack-bar-container.snack-error{
+  --mdc-snackbar-container-color: #ff5f5f;
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-support-color: #fff;
+}
+
+.mat-mdc-snack-bar-container.snack-success{
+  --mdc-snackbar-container-color: #51b051;
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-support-color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

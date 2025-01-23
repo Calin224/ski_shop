@@ -12,14 +12,20 @@ public class BuggyController : BaseApiController
     {
         return Unauthorized();
     }
-    
+
+    [HttpGet("notfound")]
+    public IActionResult GetNotFound()
+    {
+        return NotFound();
+    }
+
     [HttpGet("badrequest")]
     public IActionResult GetBadRequest()
     {
         return BadRequest("Not a good request!");
     }
 
-    [HttpGet("internalerror")]
+    [HttpGet("internalerror")] // 500 error
     public IActionResult GetInternalError()
     {
         throw new Exception("This is a test exception");

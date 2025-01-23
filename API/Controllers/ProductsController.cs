@@ -12,7 +12,6 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts([FromQuery]ProductSpecParams specParams) // ?brand="" ?type="" ?sort=""
     {
         var spec = new ProductSpecification(specParams);
-        
         return await CreatePagedResult(repo, spec, specParams.PageIndex, specParams.PageSize);
     }
 
@@ -40,7 +39,7 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateProduct(int id, Product product)
     {
-        if(product.Id != id || !ProductExists(id)) 
+        if(product.Id != id || !ProductExists(id))
             return BadRequest("Cannot update this product!");
 
         repo.Update(product);

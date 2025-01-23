@@ -13,10 +13,11 @@ import {ShopParams} from '../../shared/models/shopParams';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {Pagination} from '../../shared/models/pagination';
 import {FormsModule} from '@angular/forms';
+import {ProductItemComponent} from './product-item/product-item.component';
 
 @Component({
   selector: 'app-shop',
-  imports: [MatCardModule, MatButtonModule, CurrencyPipe, MatIcon, MatMenuTrigger, MatMenu, MatSelectionList, MatListOption, MatPaginator, FormsModule],
+  imports: [MatCardModule, MatButtonModule, MatIcon, MatMenuTrigger, MatMenu, MatSelectionList, MatListOption, MatPaginator, FormsModule, ProductItemComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss'
 })
@@ -26,7 +27,7 @@ export class ShopComponent implements OnInit {
   products?: Pagination<Product>;
 
   sortOptions = [
-    {name: 'Alphabetical', value: "name"},
+    {name: 'Alphabetical', value: "alphabetical"},
     {name: 'Price: Low-High', value: "priceAsc"},
     {name: 'Price: High-Low', value: "priceDesc"},
   ]
@@ -53,7 +54,7 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  onSortChange(event: MatSelectionListChange) {
+  onSortChange(event: MatSelectionListChange) { // set the sort and PageNumber to the shopParams
     const selectedOption = event.options[0];
     if (selectedOption) {
       this.shopParams.sort = selectedOption.value;
@@ -62,7 +63,7 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  onSearchChange(){
+  onSearchChange() { // set the search in the shopParams
     this.shopParams.pageNumber = 1;
     this.getProducts();
   }
@@ -87,7 +88,7 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  handlePageEvent(event: PageEvent) {
+  handlePageEvent(event: PageEvent) { // set the pageNumber and pageSize
     this.shopParams.pageNumber = event.pageIndex + 1;
     this.shopParams.pageSize = event.pageSize;
     this.getProducts();
