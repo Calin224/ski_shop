@@ -1,0 +1,37 @@
+<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-lg mb-6 transition-transform transform hover:scale-105">
+    <div class="flex items-center gap-6">
+        <a routerLink="/shop/{{item().productId}}" class="shrink-0">
+            <img src="{{item().pictureUrl}}" alt="{{item().productName}}" class="h-32 w-32 object-cover rounded-lg shadow-md">
+        </a>
+
+        <div class="flex-1 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-4">
+                <a routerLink="/shop/{{item().productId}}" class="font-semibold text-xl text-blue-600 hover:underline">
+                    {{item().productName}}
+                </a>
+                <p class="font-bold text-xl text-gray-900">{{item().price | currency}}</p>
+            </div>
+
+            <div class="flex items-center gap-4 mb-4">
+                <button mat-icon-button class="hover:bg-red-100" (click)="decrementQuantity()">
+                    <mat-icon class="text-red-600">remove</mat-icon>
+                </button>
+
+                <div class="font-semibold text-xl">
+                    {{item().quantity}}
+                </div>
+
+                <button mat-icon-button class="hover:bg-green-100" (click)="incrementQuantity()">
+                    <mat-icon class="text-green-600">add</mat-icon>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button mat-button color="warn" class="hover:bg-red-100" (click)="removeItemFromCart()">
+                    <mat-icon>delete</mat-icon>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

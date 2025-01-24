@@ -3,16 +3,23 @@ import {inject, Injectable} from '@angular/core';
 import {Pagination} from '../../shared/models/pagination';
 import {Product} from '../../shared/models/product';
 import {ShopParams} from '../../shared/models/shopParams';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  baseUrl = "https://localhost:5001/api/";
+  baseUrl = environment.apiUrl;
   private http = inject(HttpClient);
   types: string[] = [];
   brands: string[] = [];
 
+  /**
+   * Retrieves a list of products based on the provided shop parameters.
+   * 
+   * @param shopParams - The parameters to filter and sort the products.
+   * @returns An observable of the paginated list of products.
+   */
   getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
 
@@ -38,10 +45,22 @@ export class ShopService {
     return this.http.get<Pagination<Product>>(this.baseUrl + "products", {params});
   }
 
+  /**
+   * Retrieves a single product by its ID.
+   * 
+   * @param id - The ID of the product to retrieve.
+   * @returns An observable of the product.
+   */
   getProduct(id: number){
     return this.http.get<Product>(this.baseUrl + "products/" + id);
   }
 
+  /**
+   * Retrieves the list of product brands from the server.
+   * If the brands are already loaded, it returns immediately.
+   * 
+   * @returns A subscription to the HTTP GET request.
+   */
   getBrands() {
     if(this.brands.length > 0) return;
     return this.http.get<string[]>(this.baseUrl + "products/brands").subscribe({
@@ -49,8 +68,14 @@ export class ShopService {
     });
   }
 
+  /**
+   * Retrieves the list of product types from the server.
+   * If the types are already loaded, it returns immediately.
+   * 
+   * @returns A subscription to the HTTP GET request.
+   */
   getTypes() {
-    if(this.brands.length > 0) return;
+    if(this.types.length > 0) return;
     return this.http.get<string[]>(this.baseUrl + "products/types").subscribe({
       next: res => this.types = res
     });

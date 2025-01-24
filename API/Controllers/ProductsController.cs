@@ -8,14 +8,26 @@ namespace API.Controllers;
 
 public class ProductsController(IGenericRepository<Product> repo) : BaseApiController
 {
+    /**
+     * Retrieves a list of products based on the provided specification parameters.
+     * 
+     * @param specParams - The parameters to filter and sort the products.
+     * @returns A paginated list of products.
+     */
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts([FromQuery]ProductSpecParams specParams) // ?brand="" ?type="" ?sort=""
+    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts([FromQuery]ProductSpecParams specParams)
     {
         var spec = new ProductSpecification(specParams);
         return await CreatePagedResult(repo, spec, specParams.PageIndex, specParams.PageSize);
     }
 
-    [HttpGet("{id:int}")] // api/products/2
+    /**
+     * Retrieves a single product by its ID.
+     * 
+     * @param id - The ID of the product to retrieve.
+     * @returns The product if found, otherwise a NotFound result.
+     */
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
         var product = await repo.GetByIdAsync(id);
@@ -25,6 +37,12 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return product;
     }
 
+    /**
+     * Creates a new product.
+     * 
+     * @param product - The product to create.
+     * @returns The created product if successful, otherwise a BadRequest result.
+     */
     [HttpPost]
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
@@ -36,6 +54,13 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return BadRequest("Problem creating product!");
     }
 
+    /**
+     * Updates an existing product.
+     * 
+     * @param id - The ID of the product to update.
+     * @param product - The updated product data.
+     * @returns NoContent if successful, otherwise a BadRequest result.
+     */
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateProduct(int id, Product product)
     {
@@ -50,6 +75,12 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return BadRequest("Problem updating the product!");
     }
 
+    /**
+     * Deletes a product by its ID.
+     * 
+     * @param id - The ID of the product to delete.
+     * @returns NoContent if successful, otherwise a BadRequest result.
+     */
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteProduct(int id)
     {
@@ -64,6 +95,11 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return BadRequest("Problem deleting the product!");
     }
 
+    /**
+     * Retrieves the list of product brands.
+     * 
+     * @returns A list of product brands.
+     */
     [HttpGet("brands")]
     public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
     {
@@ -72,6 +108,11 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return Ok(await repo.ListAsync(spec));
     }
 
+    /**
+     * Retrieves the list of product types.
+     * 
+     * @returns A list of product types.
+     */
     [HttpGet("types")]
     public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
     {
@@ -80,9 +121,14 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
         return Ok(await repo.ListAsync(spec));
     }
 
+    /**
+     * Checks if a product exists by its ID.
+     * 
+     * @param id - The ID of the product to check.
+     * @returns True if the product exists, otherwise false.
+     */
     private bool ProductExists(int id)
     {
         return repo.Exists(id);
     }
-
 }
