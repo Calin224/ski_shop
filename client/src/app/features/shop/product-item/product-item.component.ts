@@ -6,6 +6,7 @@ import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card';
 import {MatIcon} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
+import gsap from "gsap";
 
 @Component({
   selector: 'app-product-item',
@@ -24,4 +25,13 @@ import { CartService } from '../../../core/services/cart.service';
 export class ProductItemComponent {
   @Input() product?: Product;
   cartService = inject(CartService);
+
+  ngAfterViewInit(){
+    gsap.from(".card", {
+     x: -100 
+    });
+    gsap.to(".card",{
+      x: 0
+    });
+  }
 }
