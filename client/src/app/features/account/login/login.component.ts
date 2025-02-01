@@ -22,9 +22,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);
+
+  private activatedRoute = inject(ActivatedRoute);
   private accountService = inject(AccountService);
   private router = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
+  
   returnUrl = '/shop';
 
   constructor(){
