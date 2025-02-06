@@ -27,7 +27,7 @@ namespace API.Controllers
         public async Task<ActionResult> DeleteCart(string id)
         {
             var res = await cartService.DeleteCartAsync(id);
-            if (!res) return BadRequest("Problem with deleteing the cart!");
+            if (!res) return BadRequest("Problem with deleting the cart!");
 
             return Ok();
         }

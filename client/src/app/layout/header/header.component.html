@@ -12,11 +12,11 @@
     </nav>
 
     <div class="flex gap-3 align-middle">
-      <a 
-        routerLink="/cart" 
-        routerLinkActive="active" 
-        matBadge="{{cartService.itemCount()}}" 
-        matBadgeSize="large" 
+      <a
+        routerLink="/cart"
+        routerLinkActive="active"
+        matBadge="{{cartService.itemCount()}}"
+        matBadgeSize="large"
         class="custom-badge mt-2 mr-2"
       >
         <mat-icon>shopping_cart</mat-icon>
@@ -39,12 +39,12 @@
 }
 
 <mat-menu #menu="matMenu" class="px-5">
-  <button mat-menu-item class="px-3" routerLink="/cart">
+  <button mat-menu-item class="px-3" routerLink="cart">
     <mat-icon>shopping_cart</mat-icon>
     My cart
   </button>
 
-  <button mat-menu-item class="px-3" routerLink="/orders">
+  <button mat-menu-item class="px-3" routerLink="orders">
     <mat-icon>history</mat-icon>
     My orders
   </button>

@@ -23,7 +23,7 @@ public class ProductsController(IUnitOfWork unit) : BaseApiController
 
     /**
      * Retrieves a single product by its ID.
-     * 
+     *
      * @param id - The ID of the product to retrieve.
      * @returns The product if found, otherwise a NotFound result.
      */
