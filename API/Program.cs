@@ -49,12 +49,17 @@ app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrig
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 
 //identity
 app.MapGroup("api").MapIdentityApi<AppUser>(); // api/login
 
 app.MapHub<NotificationHub>("/hub/notifications");
+
+app.MapFallbackToController("Index", "Fallback");
 
 // seed data
 try
